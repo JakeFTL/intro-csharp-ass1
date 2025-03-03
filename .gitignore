@@ -1,0 +1,114 @@
+# Visual Studio specific files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+
+# Test results
+[TestResults](TestResults/*)
+
+# User-specific files
+*.userosscache
+*.sln.docstates
+
+# ReSharper files
+_ReSharper.*/
+
+# StyleCop
+StyleCop.Cache
+
+# DotCover
+*.dotCover
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# Rider
+.idea/
+
+# Publish
+*.publishsettings
+
+# Click-Once
+*.application
+*.deploy
+
+# MSTest test deployment
+*.TestSettings
+*.vsmdi
+
+# SpecFlow
+*.feature.cs
+
+# CodeRush
+.cr/
+
+# T4
+*.ttOutput
+
+# Backup & report files from converting an old project file
+*.old
+
+# SQL Server files
+App_Data/*.mdf
+App_Data/*.ldf
+
+# Windows Azure Build
+csx/
+*.build.csdef
+
+# Windows Store app package directories and files
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+
+# Visual Studio cache/options directory
+.vs/
+
+# LightSwitch generated files
+GeneratedArtifacts/
+
+# TeamCity configuration
+_TeamCity/
+
+# Chutzpah Test files
+_chutzpah*
+
+# Files built by Visual Studio
+*.cache
+*.ilk
+*.ipch
+*.log
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.vspscc
+*.vssscc
+
+# Published websites
+*.Publish.xml
+*.pubxml
