@@ -3,23 +3,22 @@ string userName = Welcome.GetName();
 int[] userNumbers = NumberSelection.UserSelection();
 int[] randomNumbers = NumberSelection.RandomSelection();
 
-Console.WriteLine("Selected Numbers:");
+Console.WriteLine("Your Numbers:");
 foreach (int number in userNumbers)
 {
     Console.Write("{0} ", number);
 }
 
 Console.WriteLine("");
-Console.WriteLine("\nThe correct numbers were:");
+Console.WriteLine("\nLottery Numbers:");
 foreach (int number in randomNumbers)
 {
     Console.Write("{0} ", number);
 }
 Console.WriteLine("");
 
-//LotteryResult.Compare(userNumbers, randomNumbers);
-LotteryResult.BinaryCompare(userNumbers, randomNumbers);
-LotteryResult.Display(userNumbers.Length);
+NumberValidation.BinaryCompare(userNumbers, randomNumbers);
+NumberValidation.Display(userNumbers.Length);
 
 static class Welcome
 {
@@ -83,18 +82,25 @@ class NumberSelection
                 {
                     if (userNumber >= rangeMin && userNumber <= rangeMax)
                     {
-                        userNumbers[i] = userNumber;
-                        Console.WriteLine("Entry accepted!\n");
-                        validInput = true;
+                        if (NumberValidation.IsDuplicate(userNumber, userNumbers) == false)
+                        {
+                            userNumbers[i] = userNumber;
+                            Console.WriteLine("Entry accepted!\n");
+                            validInput = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Duplicate entered. Please try again.\n");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Error: The chosen number must between (and including) {0} and {1}", rangeMin, rangeMax);
+                        Console.WriteLine("Error: The chosen number must between (and including) {0} and {1}\n", rangeMin, rangeMax);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Error: Invalid input, only numbers accepted. Please try again.");
+                    Console.WriteLine("Error: Invalid input, only numbers accepted. Please try again.\n");
                 }
             }
         }
@@ -103,33 +109,40 @@ class NumberSelection
 
     public static int[] RandomSelection()
     {
+        Random rnd = new Random();
+
         for (int i = 0; i < entries; i++)
         {
-            Random rnd = new Random();
-            int randomNumber = rnd.Next(rangeMin, rangeMax + 1);
+            int randomNumber = 0;
+            bool isUnique = false;
+
+            while (isUnique == false)
+            {
+                randomNumber = rnd.Next(rangeMin, rangeMax + 1);
+                if (NumberValidation.IsDuplicate(randomNumber, randomNumbers) == false)
+                {
+                    isUnique = true;
+                }
+            }
             randomNumbers[i] = randomNumber;
         }
         return randomNumbers;
     }
 }
 
-static class LotteryResult
+static class NumberValidation
 {
     static int correctCount = 0;
-    public static int Compare(int[] userNumbers, int[] randomNumbers)
+    public static bool IsDuplicate(int enteredNumber, int[] numbers)
     {
-        for (int userNum = 0; userNum < userNumbers.Length; userNum++)
+        foreach (int number in numbers)
         {
-            for (int randNum = 0; randNum < randomNumbers.Length; randNum++)
+            if (number == enteredNumber)
             {
-                if (userNumbers[userNum] == randomNumbers[randNum])
-                {
-                    correctCount++;;
-                    break;
-                }
+                return true;
             }
         }
-        return correctCount;
+        return false;
     }
 
     public static int BinaryCompare(int[] userNumbers, int[] randomNumbers)
