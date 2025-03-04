@@ -1,30 +1,57 @@
-﻿Welcome.Introduction();
-string userName = Welcome.GetName();
-int[] userNumbers = NumberSelection.UserSelection();
-int[] randomNumbers = NumberSelection.RandomSelection();
+﻿bool playGame = true;
 
-Console.WriteLine("Your Numbers:");
-foreach (int number in userNumbers)
+while (playGame == true)
 {
-    Console.Write("{0} ", number);
-}
+    Welcome.Introduction();
+    string userName = Welcome.GetName();
+    int[] userNumbers = NumberSelection.UserSelection();
+    int[] randomNumbers = NumberSelection.RandomSelection();
 
-Console.WriteLine("");
-Console.WriteLine("\nLottery Numbers:");
-foreach (int number in randomNumbers)
-{
-    Console.Write("{0} ", number);
-}
-Console.WriteLine("");
+    Console.WriteLine("Your Numbers:");
+    foreach (int number in userNumbers)
+    {
+        Console.Write("{0} ", number);
+    }
 
-NumberValidation.BinaryCompare(userNumbers, randomNumbers);
-NumberValidation.Display(userNumbers.Length);
+    Console.WriteLine("");
+    Console.WriteLine("\nLottery Numbers:");
+    foreach (int number in randomNumbers)
+    {
+        Console.Write("{0} ", number);
+    }
+    Console.WriteLine("");
+
+    NumberValidation.BinaryCompare(userNumbers, randomNumbers);
+    NumberValidation.Display(userNumbers.Length);
+
+    bool validCommand = false;
+    while (validCommand == false)
+    {
+        Console.Write("\nEnter 'Quit' or 'Restart: ");
+        string userCommand = Console.ReadLine();
+        if (userCommand == "Quit" || userCommand == "quit")
+        {
+            playGame = false;
+            validCommand = true;
+        }
+        else if (userCommand == "Restart" || userCommand == "restart")
+        {
+            playGame = true;
+            validCommand = true;
+        }
+        else
+        {
+            validCommand = false;
+            Console.WriteLine("Error: Invalid Command, please try again.\n");
+        }
+    }
+}
 
 static class Welcome
 {
     public static void Introduction()
     {
-        Console.WriteLine("**********************************");
+        Console.WriteLine("\n**********************************");
         Console.WriteLine("*** Welcome to Jake's Lottery! ***");
         Console.WriteLine("**********************************");
         Console.WriteLine("***** Jacob Oliver (J093209) *****");
@@ -64,6 +91,8 @@ class NumberSelection
 
     public static int[] UserSelection()
     {
+        Array.Clear(userNumbers, 0, userNumbers.Length);
+
         Console.WriteLine("LOTTERY GUIDELINES:");
         Console.WriteLine("- Select numbers between and including {0} and {1}.", rangeMin, rangeMax);
         Console.WriteLine("- You will be able to select {0} numbers in total.\n", entries);
@@ -109,6 +138,8 @@ class NumberSelection
 
     public static int[] RandomSelection()
     {
+        Array.Clear(randomNumbers, 0, randomNumbers.Length);
+
         Random rnd = new Random();
 
         for (int i = 0; i < entries; i++)
